@@ -1,0 +1,292 @@
+<games>
+  <game>
+    <AppName>Arcanum of Steamworks and Magick Obscura</AppName>
+    <Exe>D:\games\arcanum\Arcanum.exe</Exe>
+    <StartDir>D:\games\arcanum</StartDir>
+  </game>
+  <game>
+    <AppName>Arma: Combat Operations</AppName>
+    <Exe>D:\games\arma\arma.exe</Exe>
+    <StartDir>D:\games\arma</StartDir>
+  </game>
+  <game>
+    <AppName>Baldur's Gate II</AppName>
+    <Exe>D:\games\baldursgate2\BGMain.exe</Exe>
+    <StartDir>D:\games\baldursgate2</StartDir>
+  </game>
+  <game>
+    <AppName>Battlefield 1942</AppName>
+    <Exe>D:\games\bf1942\BF1942.exe</Exe>
+    <StartDir>D:\games\bf1942</StartDir>
+  </game>
+  <game>
+    <AppName>Battlefield 2</AppName>
+    <Exe>D:\games\bf2\BF2.exe</Exe>
+    <StartDir>D:\games\bf2</StartDir>
+  </game>
+  <game>
+    <AppName>Borderlands</AppName>
+    <Exe>D:\games\borderlands\Gearbox Software\Borderlands\Binaries\Borderlands.exe</Exe>
+    <StartDir>D:\games\borderlands\Gearbox Software\Borderlands\Binaries</StartDir>
+  </game>
+  <game>
+    <AppName>Command &amp; Conquer:The First Decade</AppName>
+    <Exe>D:\games\cnc\Launcher\TFDLauncher.exe</Exe>
+    <StartDir>D:\games\cnc\Launcher</StartDir>
+  </game>
+  <game>
+    <AppName>Command &amp;Conquer 3</AppName>
+    <Exe>D:\games\cnc3\CNC3.exe</Exe>
+    <StartDir>D:\games\cnc3</StartDir>
+  </game>
+  <game>
+    <AppName>Crysis</AppName>
+    <Exe>D:\games\crysis\Bin64\Crysis.exe</Exe>
+    <StartDir>D:\games\crysis\Bin64</StartDir>
+  </game>
+  <game>
+    <AppName>Darwinia</AppName>
+    <Exe>D:\games\darwinia\darwinia.exe</Exe>
+    <StartDir>D:\games\darwinia</StartDir>
+  </game>
+  <game>
+    <AppName>Enemy Territory: Quake Wars</AppName>
+    <Exe>D:\games\etqw\etqw.exe</Exe>
+    <StartDir>D:\games\etqw</StartDir>
+  </game>
+  <game>
+    <AppName>Fallout</AppName>
+    <Exe>D:\games\fallout\falloutw.exe</Exe>
+    <StartDir>D:\games\fallout</StartDir>
+  </game>
+  <game>
+    <AppName>Fallout 2</AppName>
+    <Exe>D:\games\fallout2\fallout2.exe</Exe>
+    <StartDir>D:\games\fallout2</StartDir>
+  </game>
+  <game>
+    <AppName>Fallout 3</AppName>
+    <Exe>D:\games\fallout3\Fallout3.exe</Exe>
+    <StartDir>D:\games\fallout3</StartDir>
+  </game>
+  <game>
+    <AppName>Fallout Tactics: Brotherhood of Steel</AppName>
+    <Exe>D:\games\fallouttactics\BOS.exe</Exe>
+    <StartDir>D:\games\fallouttactics</StartDir>
+  </game>
+  <game>
+    <AppName>F.E.A.R. Single Player</AppName>
+    <Exe>D:\games\fear\FEAR.exe</Exe>
+    <StartDir>D:\games\fear</StartDir>
+  </game>
+  <game>
+    <AppName>F.E.A.R. Multiplayer</AppName>
+    <Exe>D:\games\fear\FEARMP.exe</Exe>
+    <StartDir>D:\games\fear</StartDir>
+  </game>
+  <game>
+    <AppName>Galactic Civilizations</AppName>
+    <Exe>D:\games\galciv\galciv.exe</Exe>
+    <StartDir>D:\games\galciv</StartDir>
+  </game>
+  <game>
+    <AppName>Galactic Civilizations II</AppName>
+    <Exe>D:\games\galciv2\GC2Launch.exe</Exe>
+    <StartDir>D:\games\galciv2</StartDir>
+  </game>
+  <game>
+    <AppName>Ghostbusters</AppName>
+    <Exe>D:\games\ghostbusters\ghost_w32.exe</Exe>
+    <StartDir>D:\games\ghostbusters</StartDir>
+  </game>
+  <game>
+    <AppName>Gravity Bone</AppName>
+    <Exe>D:\games\gravitybone\gravitybone.exe</Exe>
+    <StartDir>D:\games\gravitybone</StartDir>
+  </game>
+  <game>
+    <AppName>Grand Theft Auto IV</AppName>
+    <Exe>D:\games\gta4\Grand Theft Auto IV\LaunchGTAIV.exe</Exe>
+    <StartDir>D:\games\gta4\Grand Theft Auto IV</StartDir>
+  </game>
+  <game>
+    <AppName>Gunman Chronicles</AppName>
+    <Exe>D:\games\gunman\gunman.exe</Exe>
+    <StartDir>D:\games\gunman</StartDir>
+  </game>
+  <game>
+    <AppName>Halo: Combat Evolved</AppName>
+    <Exe>D:\games\halo\halo.exe</Exe>
+    <StartDir>D:\games\halo</StartDir>
+  </game>
+  <game>
+    <AppName>Hitman:Blood Money</AppName>
+    <Exe>D:\games\hitman4\HitmanBloodMoney.exe</Exe>
+    <StartDir>D:\games\hitman4</StartDir>
+  </game>
+  <game>
+    <AppName>Jagged Alliance: Deadly Games</AppName>
+    <Exe>D:\games\jalliance-dg\DOSBOX\dosbox.exe -conf dosboxjadg.conf -noconsole -c "exit"</Exe>
+    <StartDir>D:\games\jalliance-dg</StartDir>
+  </game>
+  <game>
+    <AppName>Star Wars: Knights of the Old Republic</AppName>
+    <Exe>D:\games\kotor\launcher.exe</Exe>
+    <StartDir>D:\games\kotor</StartDir>
+  </game>
+  <game>
+    <AppName>Lego Star Wars II</AppName>
+    <Exe>D:\games\legostarwars2\LegoStarWarsII.exe</Exe>
+    <StartDir>D:\games\legostarwars2</StartDir>
+  </game>
+  <game>
+    <AppName>The Lord of the Rings Online</AppName>
+    <Exe>D:\games\lotro\TurbineInvoker.exe</Exe>
+    <StartDir>D:\games\lotro</StartDir>
+  </game>
+  <game>
+    <AppName>Max Payne</AppName>
+    <Exe>D:\games\maxpayne\MaxPayne.exe</Exe>
+    <StartDir>D:\games\maxpayne</StartDir>
+  </game>
+  <game>
+    <AppName>Max Payne 2</AppName>
+    <Exe>D:\games\maxpayne2\MaxPayne2.exe</Exe>
+    <StartDir>D:\games\maxpayne2</StartDir>
+  </game>
+  <game>
+    <AppName>Mechwarrior 4: Mercenaries</AppName>
+    <Exe>D:\games\mech4\Mechwarrior Mercenaries - Mektek Mekpak\MW4Mercs.exe</Exe>
+    <StartDir>D:\games\mech4\Mechwarrior Mercenaries - Mektek Mekpak</StartDir>
+  </game>
+  <game>
+    <AppName>Mercenaries 2: World in Flames</AppName>
+    <Exe>D:\games\mercs2\Mercenaries2.exe</Exe>
+    <StartDir>D:\games\mercs2</StartDir>
+  </game>
+  <game>
+    <AppName>Neverwinter Nights: Diamond Edition</AppName>
+    <Exe>D:\games\nwn\nwn.exe</Exe>
+    <StartDir>D:\games\nwn</StartDir>
+  </game>
+  <game>
+    <AppName>The Elder Scrolls IV: Oblivion</AppName>
+    <Exe>D:\games\oblivion\OblivionLauncher.exe</Exe>
+    <StartDir>D:\games\oblivion</StartDir>
+  </game>
+  <game>
+    <AppName>Operation Flashpoint</AppName>
+    <Exe>D:\games\opflashpoint\OPERATIONFLASHPOINT.EXE</Exe>
+    <StartDir>D:\games\opflashpoint</StartDir>
+  </game>
+  <game>
+    <AppName>Painkiller Black</AppName>
+    <Exe>D:\games\painkiller\Bin\Painkiller.exe</Exe>
+    <StartDir>D:\games\painkiller\Bin</StartDir>
+  </game>
+  <game>
+    <AppName>Peggle Nights</AppName>
+    <Exe>D:\games\pegglenights\Peggle Nights\PeggleNights.exe</Exe>
+    <StartDir>D:\games\pegglenights\Peggle Nights</StartDir>
+  </game>
+  <game>
+    <AppName>Planescape: Torment</AppName>
+    <Exe>D:\games\pstorment\Torment.exe</Exe>
+    <StartDir>D:\games\pstorment</StartDir>
+  </game>
+  <game>
+    <AppName>Quake 4</AppName>
+    <Exe>D:\games\quake4\Quake4.exe</Exe>
+    <StartDir>D:\games\quake4</StartDir>
+  </game>
+  <game>
+    <AppName>Raptor: Call of the Shadows</AppName>
+    <Exe>D:\games\raptor\Raptor.exe</Exe>
+    <StartDir>D:\games\raptor</StartDir>
+  </game>
+  <game>
+    <AppName>Red Faction</AppName>
+    <Exe>D:\games\redfaction\RedFaction.exe</Exe>
+    <StartDir>D:\games\redfaction</StartDir>
+  </game>
+  <game>
+    <AppName>Sam &amp; Max Episode 1 - Culture Shock</AppName>
+    <Exe>D:\games\sammaxs1\Episode 1 - Culture Shock Data\SamMax101.exe</Exe>
+    <StartDir>D:\games\sammaxs1\Episode 1 - Culture Shock Data</StartDir>
+  </game>
+  <game>
+    <AppName>Sam &amp; Max Episode 2 - Situation Comedy</AppName>
+    <Exe>D:\games\sammaxs1\Episode 2 - Situation Comedy Data\SamMax102.exe</Exe>
+    <StartDir>D:\games\sammaxs1\Episode 2 - Situation Comedy Data</StartDir>
+  </game>
+  <game>
+    <AppName>Sam &amp; Max Episode 3 - The Mole, the Mob, and the Meatball</AppName>
+    <Exe>D:\games\sammaxs1\Episode 3 - The Mole, the Mob, and the Meatball Data\SamMax103.exe</Exe>
+    <StartDir>D:\games\sammaxs1\Episode 3 - The Mole, the Mob, and the Meatball Data</StartDir>
+  </game>
+  <game>
+    <AppName>Serious Sam 2</AppName>
+    <Exe>D:\games\serioussam2\Bin\Sam2.exe</Exe>
+    <StartDir>D:\games\serioussam2\Bin</StartDir>
+  </game>
+  <game>
+    <AppName>The Sims 3</AppName>
+    <Exe>D:\games\sims3\Game\Bin\Sims3Launcher.exe</Exe>
+    <StartDir>D:\games\sims3\Game\Bin</StartDir>
+  </game>
+  <game>
+    <AppName>Sid Meier's Alpha Centauri</AppName>
+    <Exe>D:\games\smac\terran.exe</Exe>
+    <StartDir>D:\games\smac</StartDir>
+  </game>
+  <game>
+    <AppName>Sins of a Solar Empire</AppName>
+    <Exe>D:\games\soase\Sins of a Solar Empire.exe</Exe>
+    <StartDir>D:\games\soase</StartDir>
+  </game>
+  <game>
+    <AppName>System Shock 2</AppName>
+    <Exe>D:\games\sshock2\SHOCK2.EXE</Exe>
+    <StartDir>D:\games\sshock2</StartDir>
+  </game>
+  <game>
+    <AppName>StarCraft</AppName>
+    <Exe>D:\games\starcraft\StarCraft.exe</Exe>
+    <StartDir>D:\games\starcraft</StartDir>
+  </game>
+  <game>
+    <AppName>Supreme Commander</AppName>
+    <Exe>D:\games\supcom\Supreme Commander\bin\SupremeCommander.exe</Exe>
+    <StartDir>D:\games\supcom\Supreme Commander\bin</StartDir>
+  </game>
+  <game>
+    <AppName>Supreme Commander: Forged Alliance</AppName>
+    <Exe>D:\games\supcom\Supreme Commander - Forged Alliance\bin\ForgedAlliance.exe</Exe>
+    <StartDir>D:\games\supcom\Supreme Commander - Forged Alliance\bin</StartDir>
+  </game>
+  <game>
+    <AppName>Titan Quest</AppName>
+    <Exe>D:\games\titanquest\Titan Quest.exe</Exe>
+    <StartDir>D:\games\titanquest</StartDir>
+  </game>
+  <game>
+    <AppName>Tomb Raider: Legend</AppName>
+    <Exe>D:\games\trlegend\trl.exe</Exe>
+    <StartDir>D:\games\trlegend</StartDir>
+  </game>
+  <game>
+    <AppName>Unreal Tournament</AppName>
+    <Exe>D:\games\ut\System\UnrealTournament.exe</Exe>
+    <StartDir>D:\games\ut\System</StartDir>
+  </game>
+  <game>
+    <AppName>Unreal Tournament 2004</AppName>
+    <Exe>D:\games\ut2004\System\UT2004.exe</Exe>
+    <StartDir>D:\games\ut2004\System</StartDir>
+  </game>
+  <game>
+    <AppName>Vampire: The Masquerade: Bloodlines</AppName>
+    <Exe>D:\games\vtmb\vampire.exe</Exe>
+    <StartDir>D:\games\vtmb</StartDir>
+  </game>
+</games>

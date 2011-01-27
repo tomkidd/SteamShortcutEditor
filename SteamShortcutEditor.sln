@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SteamShortcutEditor", "SteamShortcutEditor\SteamShortcutEditor.csproj", "{DFEF7DCB-7E41-4B54-92F4-60B2FB736604}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DFEF7DCB-7E41-4B54-92F4-60B2FB736604}.Debug|x86.ActiveCfg = Debug|x86
+		{DFEF7DCB-7E41-4B54-92F4-60B2FB736604}.Debug|x86.Build.0 = Debug|x86
+		{DFEF7DCB-7E41-4B54-92F4-60B2FB736604}.Release|x86.ActiveCfg = Release|x86
+		{DFEF7DCB-7E41-4B54-92F4-60B2FB736604}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
