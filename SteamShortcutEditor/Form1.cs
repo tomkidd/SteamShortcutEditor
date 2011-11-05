@@ -21,21 +21,17 @@ namespace SteamShortcutEditor
             DataColumn dcAppName = new DataColumn("AppName");
             DataColumn dcExe = new DataColumn("Exe");
             DataColumn dcStartDir = new DataColumn("StartDir");
+            DataColumn dcIcon = new DataColumn("Icon");
+            DataColumn dcNew = new DataColumn("New");
 
             dtGames = new DataTable();
             dtGames.Columns.Add(dcAppName);
             dtGames.Columns.Add(dcExe);
             dtGames.Columns.Add(dcStartDir);
+            dtGames.Columns.Add(dcIcon);
+            dtGames.Columns.Add(dcNew);
 
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string filename = @"D:\games\steam\config\shortcuts - Copy.vdf";
-            StringBuilder sb = GetByteText(filename);
-
-           // textBox1.Text = sb.ToString();
         }
 
         private static StringBuilder GetByteText(string filename)
@@ -50,8 +46,6 @@ namespace SteamShortcutEditor
 
             foreach (byte b in buff)
             {
-                //char c = '\0';
-                //try{c = (char)b;}catch{}
                 if ((int)b != 0)
                 {
                     sb.AppendLine(string.Format("\"{3}\"\t{0}\tU+{1:x4}\t{2}", b, (int)b, (int)b, (char)b));
@@ -64,7 +58,7 @@ namespace SteamShortcutEditor
             return sb;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnSendToSteam_Click(object sender, EventArgs e)
         {
             byte byteZero = byte.Parse("0");
             byte byteOne = byte.Parse("1");
@@ -87,7 +81,7 @@ namespace SteamShortcutEditor
 
             foreach (DataRow drGame in dtGames.Rows)
             {
-                Game game = new Game(drGame["AppName"].ToString() + " (Non-Steam)", drGame["Exe"].ToString(), drGame["StartDir"].ToString());
+                Game game = new Game(drGame["AppName"].ToString() + " (Non-Steam)", drGame["Exe"].ToString(), drGame["StartDir"].ToString(), drGame["Icon"].ToString());
                 games.Add(game);
             }
 
@@ -123,6 +117,10 @@ namespace SteamShortcutEditor
 
                 lbytes.AddRange(byteIcon);
                 lbytes.Add(byteZero);
+                if (!string.IsNullOrEmpty(game.Icon))
+                {
+                    lbytes.AddRange(Encoding.ASCII.GetBytes(game.Icon));
+                }
                 lbytes.Add(byteZero);
                 lbytes.Add(byteZero);
 
@@ -136,7 +134,7 @@ namespace SteamShortcutEditor
 
             lbytes.Add(byteEight);
             lbytes.Add(byteEight);
-            
+
             byte[] buffer = lbytes.ToArray();
 
             string outputFilename = txtSteamDir.Text + "\\config\\shortcuts.vdf";
@@ -152,7 +150,7 @@ namespace SteamShortcutEditor
             bw.Close();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void btnScan_Click(object sender, EventArgs e)
         {
             games = new List<Game>();
 
@@ -164,6 +162,8 @@ namespace SteamShortcutEditor
                 drGame["AppName"] = game.AppName;
                 drGame["Exe"] = game.Exe;
                 drGame["StartDir"] = game.StartDir;
+                drGame["Icon"] = game.Icon;
+                drGame["New"] = "*";
                 dtGames.Rows.Add(drGame);
             }
 
@@ -177,13 +177,45 @@ namespace SteamShortcutEditor
                 DirectoryInfo di = new DirectoryInfo(sDir);
                 foreach (DirectoryInfo subdi in di.GetDirectories())
                 {
-                    foreach (FileInfo fi in subdi.GetFiles("*.exe"))
+                    List<string> filetypes = new List<string>();
+                    filetypes.Add("*.exe");
+                    filetypes.Add("steam.bat");
+
+                    List<string> filenames = GetFiles(subdi.FullName, filetypes);
+
+                    foreach (string filename in filenames)
                     {
+                        FileInfo fi = new FileInfo(filename);
                         if (!fi.FullName.Contains(txtSteamDir.Text))
                         {
-                            games.Add(new Game(fi.Name.Replace(fi.Extension,""), fi.FullName, fi.Directory.FullName));
+                            bool addGame = true;
+
+                            if (chkExclude.Checked)
+                            {
+                                // TODO: There's got to be a better way to do this.
+                                foreach (DataRow dr in dtGames.Rows)
+                                {
+                                    if (fi.Directory.FullName.Contains(dr["StartDir"].ToString()))
+                                    {
+                                        addGame = false;
+                                    }
+                                }
+                            }
+
+                            if (addGame)
+                            {
+                                if (fi.Name == "steam.bat")
+                                {
+                                    games.Add(new Game(fi.Directory.Name, fi.FullName, fi.Directory.FullName, fi.FullName.Replace("steam.bat", "steam.ico")));
+                                }
+                                else
+                                {
+                                    games.Add(new Game(fi.Name.Replace(fi.Extension, ""), fi.FullName, fi.Directory.FullName));
+                                }
+                            }
                         }
                     }
+
                     GameSearch(subdi.FullName);
                 }
             }
@@ -193,26 +225,28 @@ namespace SteamShortcutEditor
             }
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void btnExport_Click(object sender, EventArgs e)
         {
             XmlDocument xmlGames = new XmlDocument();
             XmlElement xeGames = xmlGames.CreateElement("games");
 
             foreach (DataRow dr in dtGames.Rows)
             {
-                //games.Add(new Game(dr["AppName"].ToString(), dr["Exe"].ToString(), dr["StartDir"].ToString()));
                 XmlElement xeGame = xmlGames.CreateElement("game");
                 XmlElement xeAppName = xmlGames.CreateElement("AppName");
                 XmlElement xeExe = xmlGames.CreateElement("Exe");
                 XmlElement xeStartDir = xmlGames.CreateElement("StartDir");
+                XmlElement xeIcon = xmlGames.CreateElement("Icon");
 
                 xeAppName.InnerText = dr["AppName"].ToString();
                 xeExe.InnerText = dr["Exe"].ToString();
                 xeStartDir.InnerText = dr["StartDir"].ToString();
+                xeIcon.InnerText = dr["Icon"].ToString();
 
                 xeGame.AppendChild(xeAppName);
                 xeGame.AppendChild(xeExe);
                 xeGame.AppendChild(xeStartDir);
+                xeGame.AppendChild(xeIcon);
 
                 xeGames.AppendChild(xeGame);
             }
@@ -227,13 +261,13 @@ namespace SteamShortcutEditor
             xmlGames.Save("games.xml");
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void btnLoad_Click(object sender, EventArgs e)
         {
             XmlDocument xmlGames = new XmlDocument();
             xmlGames.Load("games.xml");
 
             XmlNodeList xnlGames = xmlGames.GetElementsByTagName("game");
-            
+
             dtGames.Clear();
 
             foreach (XmlElement xeGame in xnlGames)
@@ -242,6 +276,11 @@ namespace SteamShortcutEditor
                 drGame["AppName"] = xeGame["AppName"].InnerText;
                 drGame["Exe"] = xeGame["Exe"].InnerText;
                 drGame["StartDir"] = xeGame["StartDir"].InnerText;
+                if (xeGame["Icon"] != null) 
+                {
+                    drGame["Icon"] = xeGame["Icon"].InnerText;
+                };
+                drGame["New"] = "";
                 dtGames.Rows.Add(drGame);
             }
 
@@ -252,6 +291,20 @@ namespace SteamShortcutEditor
         {
             MessageBox.Show(dtGames.Rows.Count.ToString());
         }
+
+        public static List<string> GetFiles(string path, List<string> listOfSearchPatterns)
+        {
+            List<string> matchingFiles = new List<string>();
+
+            foreach (string pattern in listOfSearchPatterns)
+            {
+                //add the the files that match our pattern to our list
+                matchingFiles.AddRange(Directory.GetFiles(path, pattern));
+            }
+
+            return matchingFiles;
+        }
+
     }
 
     public class Game
@@ -265,6 +318,14 @@ namespace SteamShortcutEditor
             this.AppName = AppName;
             this.Exe = Exe;
             this.StartDir = StartDir;
+        }
+
+        public Game(string AppName, string Exe, string StartDir, string Icon)
+        {
+            this.AppName = AppName;
+            this.Exe = Exe;
+            this.StartDir = StartDir;
+            this.Icon = Icon;
         }
 
         private string appName;
@@ -289,6 +350,14 @@ namespace SteamShortcutEditor
         {
             get { return startDir; }
             set { startDir = value; }
+        }
+
+        private string icon;
+
+        public string Icon
+        {
+            get { return icon; }
+            set { icon = value; }
         }
     }
 
