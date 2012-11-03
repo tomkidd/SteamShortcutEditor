@@ -18,145 +18,156 @@ namespace SteamShortcutEditor
 
         public Form1()
         {
-            DataColumn dcAppName = new DataColumn("AppName");
-            DataColumn dcExe = new DataColumn("Exe");
-            DataColumn dcStartDir = new DataColumn("StartDir");
-            DataColumn dcIcon = new DataColumn("Icon");
-            DataColumn dcNew = new DataColumn("New");
+            DataColumn dcAppName = new DataColumn( "AppName" );
+            DataColumn dcExe = new DataColumn( "Exe" );
+            DataColumn dcStartDir = new DataColumn( "StartDir" );
+            DataColumn dcIcon = new DataColumn( "Icon" );
+            DataColumn dcNew = new DataColumn( "New" );
+            DataColumn dcExists = new DataColumn( "Exists" );
 
             dtGames = new DataTable();
-            dtGames.Columns.Add(dcAppName);
-            dtGames.Columns.Add(dcExe);
-            dtGames.Columns.Add(dcStartDir);
-            dtGames.Columns.Add(dcIcon);
-            dtGames.Columns.Add(dcNew);
+            dtGames.Columns.Add( dcAppName );
+            dtGames.Columns.Add( dcExe );
+            dtGames.Columns.Add( dcStartDir );
+            dtGames.Columns.Add( dcIcon );
+            dtGames.Columns.Add( dcNew );
+            dtGames.Columns.Add( dcExists );
 
             InitializeComponent();
         }
 
-        private static StringBuilder GetByteText(string filename)
+        private string GetBaseGameDirectory( string dir )
+        {
+            //string[] Breakdown = dir.TrimStart( ( txtGamesDir.Text + "\\" ).ToCharArray() ).Split( '\\' );
+            string[] Breakdown = dir.Substring( txtGamesDir.Text.TrimEnd('\\').Length + 1 ).Split( '\\' );
+
+            return Path.Combine( txtGamesDir.Text, Breakdown[0] );
+        }
+
+        private static StringBuilder GetByteText( string filename )
         {
             byte[] buff = null;
-            FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
-            BinaryReader br = new BinaryReader(fs);
-            long numBytes = new FileInfo(filename).Length;
-            buff = br.ReadBytes((int)numBytes);
+            FileStream fs = new FileStream( filename, FileMode.Open, FileAccess.Read );
+            BinaryReader br = new BinaryReader( fs );
+            long numBytes = new FileInfo( filename ).Length;
+            buff = br.ReadBytes( (int)numBytes );
 
             StringBuilder sb = new StringBuilder();
 
-            foreach (byte b in buff)
+            foreach ( byte b in buff )
             {
-                if ((int)b != 0)
+                if ( (int)b != 0 )
                 {
-                    sb.AppendLine(string.Format("\"{3}\"\t{0}\tU+{1:x4}\t{2}", b, (int)b, (int)b, (char)b));
+                    sb.AppendLine( string.Format( "\"{3}\"\t{0}\tU+{1:x4}\t{2}", b, (int)b, (int)b, (char)b ) );
                 }
                 else
                 {
-                    sb.AppendLine(string.Format("\"{3}\"\t{0}\tU+{1:x4}\t{2}", b, (int)b, (int)b, ""));
+                    sb.AppendLine( string.Format( "\"{3}\"\t{0}\tU+{1:x4}\t{2}", b, (int)b, (int)b, "" ) );
                 }
             }
             return sb;
         }
 
-        private void btnSendToSteam_Click(object sender, EventArgs e)
+        private void btnSendToSteam_Click( object sender, EventArgs e )
         {
-            byte byteZero = byte.Parse("0");
-            byte byteOne = byte.Parse("1");
-            byte byteEight = byte.Parse("8");
-            byte[] byteShortcuts = Encoding.ASCII.GetBytes("Shortcuts");
-            byte[] byteAppName = Encoding.ASCII.GetBytes("AppName");
-            byte[] byteExe = Encoding.ASCII.GetBytes("Exe");
-            byte[] byteStartDir = Encoding.ASCII.GetBytes("StartDir");
-            byte[] byteIcon = Encoding.ASCII.GetBytes("icon");
-            byte[] byteTags = Encoding.ASCII.GetBytes("tags");
+            byte byteZero = byte.Parse( "0" );
+            byte byteOne = byte.Parse( "1" );
+            byte byteEight = byte.Parse( "8" );
+            byte[] byteShortcuts = Encoding.ASCII.GetBytes( "Shortcuts" );
+            byte[] byteAppName = Encoding.ASCII.GetBytes( "AppName" );
+            byte[] byteExe = Encoding.ASCII.GetBytes( "Exe" );
+            byte[] byteStartDir = Encoding.ASCII.GetBytes( "StartDir" );
+            byte[] byteIcon = Encoding.ASCII.GetBytes( "icon" );
+            byte[] byteTags = Encoding.ASCII.GetBytes( "tags" );
 
             List<byte> lbytes = new List<byte>();
 
-            lbytes.Add(byteZero);
+            lbytes.Add( byteZero );
             //lbytes.Add(byteOne);
-            lbytes.AddRange(byteShortcuts);
-            lbytes.Add(byteZero);
+            lbytes.AddRange( byteShortcuts );
+            lbytes.Add( byteZero );
 
             List<Game> games = new List<Game>();
 
-            foreach (DataRow drGame in dtGames.Rows)
+            foreach ( DataRow drGame in dtGames.Rows )
             {
-                Game game = new Game(drGame["AppName"].ToString() + " (Non-Steam)", drGame["Exe"].ToString(), drGame["StartDir"].ToString(), drGame["Icon"].ToString());
-                games.Add(game);
+                Game game = new Game( drGame["AppName"].ToString() + " (Non-Steam)", drGame["Exe"].ToString(), drGame["StartDir"].ToString(), drGame["Icon"].ToString() );
+                games.Add( game );
             }
 
             int i = 0;
 
-            foreach (Game game in games)
+            foreach ( Game game in games )
             {
-                lbytes.Add(byteZero);
+                lbytes.Add( byteZero );
 
-                byte[] byteIndex = Encoding.ASCII.GetBytes(i.ToString());
-                lbytes.AddRange(byteIndex);
+                byte[] byteIndex = Encoding.ASCII.GetBytes( i.ToString() );
+                lbytes.AddRange( byteIndex );
 
-                lbytes.Add(byteZero);
-                lbytes.Add(byteOne);
+                lbytes.Add( byteZero );
+                lbytes.Add( byteOne );
 
-                lbytes.AddRange(byteAppName);
-                lbytes.Add(byteZero);
-                lbytes.AddRange(Encoding.ASCII.GetBytes(game.AppName));
-                lbytes.Add(byteZero);
-                lbytes.Add(byteOne);
+                lbytes.AddRange( byteAppName );
+                lbytes.Add( byteZero );
+                lbytes.AddRange( Encoding.ASCII.GetBytes( game.AppName ) );
+                lbytes.Add( byteZero );
+                lbytes.Add( byteOne );
 
-                lbytes.AddRange(byteExe);
-                lbytes.Add(byteZero);
-                lbytes.AddRange(Encoding.ASCII.GetBytes(game.Exe));
-                lbytes.Add(byteZero);
-                lbytes.Add(byteOne);
+                lbytes.AddRange( byteExe );
+                lbytes.Add( byteZero );
+                lbytes.AddRange( Encoding.ASCII.GetBytes( game.Exe ) );
+                lbytes.Add( byteZero );
+                lbytes.Add( byteOne );
 
-                lbytes.AddRange(byteStartDir);
-                lbytes.Add(byteZero);
-                lbytes.AddRange(Encoding.ASCII.GetBytes(game.StartDir));
-                lbytes.Add(byteZero);
-                lbytes.Add(byteOne);
+                lbytes.AddRange( byteStartDir );
+                lbytes.Add( byteZero );
+                lbytes.AddRange( Encoding.ASCII.GetBytes( game.StartDir ) );
+                lbytes.Add( byteZero );
+                lbytes.Add( byteOne );
 
-                lbytes.AddRange(byteIcon);
-                lbytes.Add(byteZero);
-                if (!string.IsNullOrEmpty(game.Icon))
+                lbytes.AddRange( byteIcon );
+                lbytes.Add( byteZero );
+                if ( !string.IsNullOrEmpty( game.Icon ) )
                 {
-                    lbytes.AddRange(Encoding.ASCII.GetBytes(game.Icon));
+                    lbytes.AddRange( Encoding.ASCII.GetBytes( game.Icon ) );
                 }
-                lbytes.Add(byteZero);
-                lbytes.Add(byteZero);
+                lbytes.Add( byteZero );
+                lbytes.Add( byteZero );
 
-                lbytes.AddRange(byteTags);
-                lbytes.Add(byteZero);
-                lbytes.Add(byteEight);
-                lbytes.Add(byteEight);
+                lbytes.AddRange( byteTags );
+                lbytes.Add( byteZero );
+                lbytes.Add( byteEight );
+                lbytes.Add( byteEight );
 
                 i++;
             }
 
-            lbytes.Add(byteEight);
-            lbytes.Add(byteEight);
+            lbytes.Add( byteEight );
+            lbytes.Add( byteEight );
 
             byte[] buffer = lbytes.ToArray();
 
-            string outputFilename = txtSteamDir.Text + "\\config\\shortcuts.vdf";
+            //string outputFilename = txtSteamDir.Text + "\\config\\shortcuts.vdf";
+            string outputFilename = txtSteamDir.Text + "\\userdata\\1056016\\config\\shortcuts.vdf";
 
-            if (File.Exists(outputFilename))
+            if ( File.Exists( outputFilename ) )
             {
-                File.Delete(outputFilename);
+                File.Delete( outputFilename );
             }
 
-            FileStream fs = new FileStream(outputFilename, FileMode.Create, FileAccess.ReadWrite);
-            BinaryWriter bw = new BinaryWriter(fs);
-            bw.Write(buffer);
+            FileStream fs = new FileStream( outputFilename, FileMode.Create, FileAccess.ReadWrite );
+            BinaryWriter bw = new BinaryWriter( fs );
+            bw.Write( buffer );
             bw.Close();
         }
 
-        private void btnScan_Click(object sender, EventArgs e)
+        private void btnScan_Click( object sender, EventArgs e )
         {
             games = new List<Game>();
 
-            GameSearch(txtGamesDir.Text);
+            GameSearch( txtGamesDir.Text );
 
-            foreach (Game game in games)
+            foreach ( Game game in games )
             {
                 DataRow drGame = dtGames.NewRow();
                 drGame["AppName"] = game.AppName;
@@ -164,142 +175,165 @@ namespace SteamShortcutEditor
                 drGame["StartDir"] = game.StartDir;
                 drGame["Icon"] = game.Icon;
                 drGame["New"] = "*";
-                dtGames.Rows.Add(drGame);
+                drGame["Exists"] = File.Exists( game.Exe ) ? "yes" : "NO";
+                dtGames.Rows.Add( drGame );
             }
 
             dataGridView1.DataSource = dtGames;
+
+            ResizeColumns();
         }
 
-        private void GameSearch(string sDir)
+        private void ResizeColumns()
+        {
+            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            for ( int i = 0; i < dataGridView1.Columns.Count; i++ )
+            {
+                int colw = dataGridView1.Columns[i].Width;
+                dataGridView1.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dataGridView1.Columns[i].Width = colw;
+            }
+        }
+
+        private void GameSearch( string sDir )
         {
             try
             {
-                DirectoryInfo di = new DirectoryInfo(sDir);
-                foreach (DirectoryInfo subdi in di.GetDirectories())
+                DirectoryInfo di = new DirectoryInfo( sDir );
+                foreach ( DirectoryInfo subdi in di.GetDirectories() )
                 {
                     List<string> filetypes = new List<string>();
-                    filetypes.Add("*.exe");
-                    filetypes.Add("steam.bat");
+                    filetypes.Add( "*.exe" );
+                    filetypes.Add( "steam.bat" );
 
-                    List<string> filenames = GetFiles(subdi.FullName, filetypes);
+                    List<string> filenames = GetFiles( subdi.FullName, filetypes );
 
-                    foreach (string filename in filenames)
+                    foreach ( string filename in filenames )
                     {
-                        FileInfo fi = new FileInfo(filename);
-                        if (!fi.FullName.Contains(txtSteamDir.Text))
+                        FileInfo fi = new FileInfo( filename );
+                        if ( !fi.FullName.Contains( txtSteamDir.Text ) )
                         {
                             bool addGame = true;
 
-                            if (chkExclude.Checked)
+                            if ( chkExclude.Checked )
                             {
                                 // TODO: There's got to be a better way to do this.
-                                foreach (DataRow dr in dtGames.Rows)
+                                foreach ( DataRow dr in dtGames.Rows )
                                 {
-                                    if (fi.Directory.FullName.Contains(dr["StartDir"].ToString()))
+                                    if ( fi.Directory.FullName.Contains( GetBaseGameDirectory( dr["StartDir"].ToString() ) ) )
                                     {
                                         addGame = false;
                                     }
                                 }
                             }
 
-                            if (addGame)
+                            if ( addGame )
                             {
-                                if (fi.Name == "steam.bat")
+                                if ( fi.Name == "steam.bat" )
                                 {
-                                    games.Add(new Game(fi.Directory.Name, fi.FullName, fi.Directory.FullName, fi.FullName.Replace("steam.bat", "steam.ico")));
+                                    games.Add( new Game( fi.Directory.Name, fi.FullName, fi.Directory.FullName, fi.FullName.Replace( "steam.bat", "steam.ico" ) ) );
                                 }
                                 else
                                 {
-                                    games.Add(new Game(fi.Name.Replace(fi.Extension, ""), fi.FullName, fi.Directory.FullName));
+                                    games.Add( new Game( fi.Name.Replace( fi.Extension, "" ), fi.FullName, fi.Directory.FullName ) );
                                 }
                             }
                         }
                     }
 
-                    GameSearch(subdi.FullName);
+                    GameSearch( subdi.FullName );
                 }
             }
-            catch (System.Exception excpt)
+            catch ( System.Exception excpt )
             {
-                Console.WriteLine(excpt.Message);
+                Console.WriteLine( excpt.Message );
             }
         }
 
-        private void btnExport_Click(object sender, EventArgs e)
+        private void btnExport_Click( object sender, EventArgs e )
         {
             XmlDocument xmlGames = new XmlDocument();
-            XmlElement xeGames = xmlGames.CreateElement("games");
+            XmlElement xeGames = xmlGames.CreateElement( "games" );
 
-            foreach (DataRow dr in dtGames.Rows)
+            foreach ( DataRow dr in dtGames.Rows )
             {
-                XmlElement xeGame = xmlGames.CreateElement("game");
-                XmlElement xeAppName = xmlGames.CreateElement("AppName");
-                XmlElement xeExe = xmlGames.CreateElement("Exe");
-                XmlElement xeStartDir = xmlGames.CreateElement("StartDir");
-                XmlElement xeIcon = xmlGames.CreateElement("Icon");
+                XmlElement xeGame = xmlGames.CreateElement( "game" );
+                XmlElement xeAppName = xmlGames.CreateElement( "AppName" );
+                XmlElement xeExe = xmlGames.CreateElement( "Exe" );
+                XmlElement xeStartDir = xmlGames.CreateElement( "StartDir" );
+                XmlElement xeIcon = xmlGames.CreateElement( "Icon" );
 
                 xeAppName.InnerText = dr["AppName"].ToString();
                 xeExe.InnerText = dr["Exe"].ToString();
                 xeStartDir.InnerText = dr["StartDir"].ToString();
                 xeIcon.InnerText = dr["Icon"].ToString();
 
-                xeGame.AppendChild(xeAppName);
-                xeGame.AppendChild(xeExe);
-                xeGame.AppendChild(xeStartDir);
-                xeGame.AppendChild(xeIcon);
+                xeGame.AppendChild( xeAppName );
+                xeGame.AppendChild( xeExe );
+                xeGame.AppendChild( xeStartDir );
+                xeGame.AppendChild( xeIcon );
 
-                xeGames.AppendChild(xeGame);
+                xeGames.AppendChild( xeGame );
             }
 
-            xmlGames.AppendChild(xeGames);
+            xmlGames.AppendChild( xeGames );
 
-            if (File.Exists("games.xml"))
+            if ( File.Exists( "games.xml" ) )
             {
-                File.Delete("games.xml");
+                File.Delete( "games.xml" );
             }
 
-            xmlGames.Save("games.xml");
+            xmlGames.Save( "games.xml" );
         }
 
-        private void btnLoad_Click(object sender, EventArgs e)
+        private void btnLoad_Click( object sender, EventArgs e )
         {
             XmlDocument xmlGames = new XmlDocument();
-            xmlGames.Load("games.xml");
+            xmlGames.Load( "games.xml" );
 
-            XmlNodeList xnlGames = xmlGames.GetElementsByTagName("game");
+            XmlNodeList xnlGames = xmlGames.GetElementsByTagName( "game" );
 
             dtGames.Clear();
 
-            foreach (XmlElement xeGame in xnlGames)
+            foreach ( XmlElement xeGame in xnlGames )
             {
                 DataRow drGame = dtGames.NewRow();
                 drGame["AppName"] = xeGame["AppName"].InnerText;
                 drGame["Exe"] = xeGame["Exe"].InnerText;
                 drGame["StartDir"] = xeGame["StartDir"].InnerText;
-                if (xeGame["Icon"] != null) 
+                if ( xeGame["Icon"] != null )
                 {
                     drGame["Icon"] = xeGame["Icon"].InnerText;
                 };
                 drGame["New"] = "";
-                dtGames.Rows.Add(drGame);
+                drGame["Exists"] = File.Exists( xeGame["Exe"].InnerText ) ? "yes" : "NO";
+                dtGames.Rows.Add( drGame );
             }
 
             dataGridView1.DataSource = dtGames;
+
+            ResizeColumns();
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void button8_Click( object sender, EventArgs e )
         {
-            MessageBox.Show(dtGames.Rows.Count.ToString());
+            MessageBox.Show( dtGames.Rows.Count.ToString() );
         }
 
-        public static List<string> GetFiles(string path, List<string> listOfSearchPatterns)
+        public static List<string> GetFiles( string path, List<string> listOfSearchPatterns )
         {
             List<string> matchingFiles = new List<string>();
 
-            foreach (string pattern in listOfSearchPatterns)
+            foreach ( string pattern in listOfSearchPatterns )
             {
                 //add the the files that match our pattern to our list
-                matchingFiles.AddRange(Directory.GetFiles(path, pattern));
+                matchingFiles.AddRange( Directory.GetFiles( path, pattern ) );
             }
 
             return matchingFiles;
@@ -313,14 +347,14 @@ namespace SteamShortcutEditor
         {
         }
 
-        public Game(string AppName, string Exe, string StartDir)
+        public Game( string AppName, string Exe, string StartDir )
         {
             this.AppName = AppName;
             this.Exe = Exe;
             this.StartDir = StartDir;
         }
 
-        public Game(string AppName, string Exe, string StartDir, string Icon)
+        public Game( string AppName, string Exe, string StartDir, string Icon )
         {
             this.AppName = AppName;
             this.Exe = Exe;
