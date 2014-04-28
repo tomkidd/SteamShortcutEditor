@@ -1,9 +1,0 @@
-c:\users\tom\documents\visual studio 2010\Projects\SteamShortcutEditor\SteamShortcutEditor\bin\Debug\SteamShortcutEditor.exe
-c:\users\tom\documents\visual studio 2010\Projects\SteamShortcutEditor\SteamShortcutEditor\bin\Debug\SteamShortcutEditor.pdb
-c:\users\tom\documents\visual studio 2010\Projects\SteamShortcutEditor\SteamShortcutEditor\obj\x86\Debug\ResolveAssemblyReference.cache
-c:\users\tom\documents\visual studio 2010\Projects\SteamShortcutEditor\SteamShortcutEditor\obj\x86\Debug\SteamShortcutEditor.Properties.Resources.resources
-c:\users\tom\documents\visual studio 2010\Projects\SteamShortcutEditor\SteamShortcutEditor\obj\x86\Debug\GenerateResource.read.1.tlog
-c:\users\tom\documents\visual studio 2010\Projects\SteamShortcutEditor\SteamShortcutEditor\obj\x86\Debug\GenerateResource.write.1.tlog
-c:\users\tom\documents\visual studio 2010\Projects\SteamShortcutEditor\SteamShortcutEditor\obj\x86\Debug\SteamShortcutEditor.exe
-c:\users\tom\documents\visual studio 2010\Projects\SteamShortcutEditor\SteamShortcutEditor\obj\x86\Debug\SteamShortcutEditor.pdb
-c:\users\tom\documents\visual studio 2010\Projects\SteamShortcutEditor\SteamShortcutEditor\obj\x86\Debug\SteamShortcutEditor.Form1.resources
